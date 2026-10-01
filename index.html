@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JANNATIM USTOZIM // CLASSIFIED</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,0.015) 0px,
+            rgba(255,255,255,0.015) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    mix-blend-mode: overlay;
+}
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+.music-button {
+    position: fixed;
+    right: 18px;
+    top: 18px;
+    z-index: 5000;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+    border: 2px solid #ffcc00;
+
+    background: #111;
+    color: #ffcc00;
+
+    font-size: 22px;
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(255,204,0,.3);
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle, #252525, #050505 70%);
+
+    z-index: 4000;
+
+    transition: 1s;
+}
+
+.intro-box {
+    width: min(90%, 700px);
+    text-align: center;
+}
+
+.classified {
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    border: 2px solid #ff3333;
+
+    color: #ff3333;
+
+    font-weight: bold;
+    letter-spacing: 4px;
+
+    transform: rotate(-2deg);
+
+    margin-bottom: 25px;
+}
+
+.intro-title {
+    font-size: clamp(42px, 10vw, 100px);
+    font-weight: 900;
+
+    line-height: .9;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        5px 5px 0 #ff3333,
+        -2px -2px 0 #ffcc00;
+}
+
+.intro-subtitle {
+    margin-top: 25px;
+
+    color: #aaa;
+
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.access-button {
+    margin-top: 35px;
+
+    padding: 18px 35px;
+
+    background: #ffcc00;
+    color: #050505;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.access-button:hover {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 0 30px rgba(255,204,0,.5);
+}
+
+/* =========================
+   LOADING
+========================= */
+
+#loading {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: #050505;
+
+    z-index: 3000;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+.loading-content {
+    width: min(90%, 600px);
+}
+
+.loading-text {
+    color: #ffcc00;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 15px;
+
+    border: 1px solid #444;
+
+    background: #111;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+
+    background: #ffcc00;
+
+    transition: width .15s;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+#main {
+    display: none;
+}
+
+.hero {
+    min-height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(circle at 50% 20%, #303030, #080808 65%);
+}
+
+.hero-small {
+    color: #ff3333;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 12vw, 140px);
+
+    line-height: .85;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        6px 6px 0 #ff3333,
+        -3px -3px 0 #ffcc00;
+}
+
+.hero p {
+    max-width: 700px;
+
+    color: #aaa;
+
+    margin-top: 30px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   STATISTICS
+========================= */
+
+.section {
+    padding: 90px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+
+    font-size: clamp(35px, 7vw, 65px);
+
+    margin-bottom: 50px;
+}
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 20px;
+}
+
+.stat {
+    padding: 30px;
+
+    background: #151515;
+
+    border: 1px solid #333;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    transition: .3s;
+}
+
+.stat:hover {
+    transform: translateY(-8px) rotate(1deg);
+
+    border-color: #ffcc00;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,.5);
+}
+
+.stat-number {
+    font-size: 45px;
+
+    font-weight: 900;
+
+    color: #ffcc00;
+
+    margin-bottom: 10px;
+}
+
+.stat-name {
+    color: #aaa;
+}
+
+/* =========================
+   RANDOM MESSAGE
+========================= */
+
+.message-box {
+    margin: 60px auto;
+
+    max-width: 800px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(135deg, #181818, #101010);
+
+    border: 2px dashed #ff3333;
+}
+
+.message-box h3 {
+    color: #ff3333;
+
+    font-size: 25px;
+
+    margin-bottom: 15px;
+}
+
+#randomMessage {
+    font-size: 22px;
+
+    line-height: 1.5;
+
+    color: #ddd;
+}
+
+.random-button {
+    margin-top: 25px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ffcc00;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 30px;
+}
+
+.card {
+    position: relative;
+
+    background: #151515;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border: 1px solid #333;
+
+    opacity: 0;
+
+    transform: translateY(80px) scale(.8);
+
+    animation: reveal .8s forwards;
+
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotate(-1deg) scale(1.02);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.6);
+}
+
+.card img {
+    width: 100%;
+
+    height: 320px;
+
+    object-fit: cover;
+
+    display: block;
+
+    cursor: pointer;
+}
+
+.card-info {
+    padding: 20px;
+}
+
+.photo-number {
+    color: #ff3333;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.caption {
+    color: #ddd;
+
+    font-size: 17px;
+
+    line-height: 1.5;
+}
+
+@keyframes reveal {
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* =========================
+   PHOTO MODAL
+========================= */
+
+#modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.92);
+
+    z-index: 6000;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+}
+
+#modal img {
+    max-width: 95%;
+    max-height: 85vh;
+
+    border-radius: 15px;
+
+    box-shadow: 0 0 80px rgba(255,255,255,.15);
+}
+
+.close {
+    position: absolute;
+
+    top: 20px;
+    right: 25px;
+
+    font-size: 40px;
+
+    cursor: pointer;
+
+    color: white;
+}
+
+/* =========================
+   AWARDS
+========================= */
+
+.awards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 20px;
+}
+
+.award {
+    padding: 30px;
+
+    text-align: center;
+
+    background: #171717;
+
+    border-radius: 20px;
+
+    border: 1px solid #333;
+
+    transition: .3s;
+}
+
+.award:hover {
+    transform: rotate(2deg) scale(1.03);
+}
+
+.award-icon {
+    font-size: 50px;
+
+    margin-bottom: 15px;
+}
+
+.award h3 {
+    color: #ffcc00;
+
+    margin-bottom: 10px;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final {
+    min-height: 90vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(circle, #302800, #080808 65%);
+}
+
+.final h2 {
+    font-size: clamp(45px, 10vw, 110px);
+
+    line-height: .9;
+
+    text-shadow:
+        5px 5px 0 #ff3333;
+}
+
+.final p {
+    margin-top: 30px;
+
+    max-width: 650px;
+
+    color: #ccc;
+
+    font-size: 20px;
+
+    line-height: 1.7;
+}
+
+.heart {
+    font-size: 80px;
+
+    margin-top: 30px;
+
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+
+    50% {
+        transform: scale(1.2);
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    .hero {
+        min-height: 80vh;
+    }
+
+    .card img {
+        height: 360px;
+    }
+
+    .section {
+        padding: 60px 15px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-button" onclick="toggleMusic()" id="musicButton">
+    🔇
+</button>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<div id="intro">
+
+    <div class="intro-box">
+
+        <div class="classified">
+            ⚠ TOP SECRET ⚠
+        </div>
+
+        <div class="intro-title">
+            JANNATIM<br>
+            USTOZIM
+        </div>
+
+        <p class="intro-subtitle">
+            You have somehow discovered a classified collection
+            of evidence involving one very suspicious teacher.
+            <br><br>
+            Subject: <b>JASUR</b>
+            <br>
+            Codename: <b>JANNATIM USTOZIM</b>
+        </p>
+
+        <button class="access-button" onclick="startWebsite()">
+            🔓 ACCESS CLASSIFIED FILES
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<div id="loading">
+
+    <div class="loading-content">
+
+        <div class="loading-text" id="loadingText">
+            Initializing nonsense...
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div id="main">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-small">
+            CLASSIFIED TEACHER DATABASE
+        </div>
+
+        <h1>
+            JASUR
+        </h1>
+
+        <p>
+            Also known as:
+            <b>JANNATIM USTOZIM</b>
+            <br><br>
+
+            After years of investigation,
+            we have finally obtained access
+            to the forbidden archive.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         STATISTICS
+    ========================= -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            📊 TEACHER STATISTICS
+        </h2>
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-number" id="stat1">
+                    0
+                </div>
+
+                <div class="stat-name">
+                    Times said "Be quiet"
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number" id="stat2">
+                    0
+                </div>
+
+                <div class="stat-name">
+                    Students confused
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number" id="stat3">
+                    0
+                </div>
+
+                <div class="stat-name">
+                    Legendary moments
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number" id="stat4">
+                    0%
+                </div>
+
+                <div class="stat-name">
+                    Teacher energy
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number" id="stat5">
+                    ∞
+                </div>
+
+                <div class="stat-name">
+                    Jannatim level
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    100%
+                </div>
+
+                <div class="stat-name">
+                    Certified Ustoz
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RANDOM MESSAGE -->
+
+        <div class="message-box">
+
+            <h3>
+                🚨 AUTOMATIC ANALYSIS
+            </h3>
+
+            <div id="randomMessage">
+                Analyzing subject...
+            </div>
+
+            <button
+                class="random-button"
+                onclick="randomMessage()">
+                🔄 Analyze Again
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PHOTO ARCHIVE
+    ========================= -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            📁 FORBIDDEN ARCHIVE
+        </h2>
+
+        <div class="gallery" id="gallery">
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         AWARDS
+    ========================= -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            🏆 OFFICIAL AWARDS
+        </h2>
+
+        <div class="awards">
+
+            <div class="award">
+
+                <div class="award-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Most Likely To Say "Listen"
+                </h3>
+
+                <p>
+                    Awarded unanimously by absolutely nobody.
+                </p>
+
+            </div>
+
+
+            <div class="award">
+
+                <div class="award-icon">
+                    😂
+                </div>
+
+                <h3>
+                    Professional Meme Material
+                </h3>
+
+                <p>
+                    Years of experience.
+                    Zero regrets.
+                </p>
+
+            </div>
+
+
+            <div class="award">
+
+                <div class="award-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Legendary Ustoz
+                </h3>
+
+                <p>
+                    No further explanation required.
+                </p>
+
+            </div>
+
+
+            <div class="award">
+
+                <div class="award-icon">
+                    👑
+                </div>
+
+                <h3>
+                    Jannatim Status
+                </h3>
+
+                <p>
+                    Status: Permanently unlocked.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL
+    ========================= -->
+
+    <section class="final">
+
+        <h2>
+            HAPPY<br>
+            TEACHER'S DAY!
+        </h2>
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <p>
+
+            Dear Jannatim Ustozim,
+
+            <br><br>
+
+            Thank you for teaching us,
+            tolerating us,
+            and somehow surviving all of us.
+
+            <br><br>
+
+            We may make fun of you today...
+
+            <br>
+
+            but we genuinely appreciate you.
+
+            <br><br>
+
+            <b>
+                With love from your students ❤️
+            </b>
+
+        </p>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div id="modal" onclick="closeModal()">
+
+    <div class="close">
+        ×
+    </div>
+
+    <img id="modalImage" src="">
+
+</div>
+
+
+<script>
+
+/* =========================
+   MUSIC
+========================= */
+
+const music = document.getElementById("music");
+
+function toggleMusic() {
+
+    const button = document.getElementById("musicButton");
+
+    if (music.paused) {
+
+        music.play();
+
+        button.innerHTML = "🔊";
+
+    } else {
+
+        music.pause();
+
+        button.innerHTML = "🔇";
+
+    }
+
+}
+
+
+/* =========================
+   START WEBSITE
+========================= */
+
+function startWebsite() {
+
+    const intro = document.getElementById("intro");
+    const loading = document.getElementById("loading");
+
+    intro.style.opacity = "0";
+
+    setTimeout(() => {
+
+        intro.style.display = "none";
+
+        loading.style.display = "flex";
+
+        startLoading();
+
+    }, 800);
+
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+function startLoading() {
+
+    const bar = document.getElementById("progressBar");
+    const text = document.getElementById("loadingText");
+
+    const messages = [
+
+        "Locating Jasur...",
+        "Scanning teacher database...",
+        "Counting suspicious photos...",
+        "Calculating Jannatim level...",
+        "Downloading unnecessary information...",
+        "Analyzing teacher aura...",
+        "Checking for professionalism...",
+        "Professionalism not found.",
+        "Preparing classified archive...",
+        "OH NO... HE FOUND US.",
+        "Just kidding.",
+        "Almost ready..."
+
+    ];
+
+    let progress = 0;
+    let index = 0;
+
+    const interval = setInterval(() => {
+
+        progress += Math.random() * 8 + 3;
+
+        if (progress > 100)
+            progress = 100;
+
+        bar.style.width = progress + "%";
+
+        if (index < messages.length) {
+
+            text.innerText = messages[index];
+
+            index++;
+
+        }
+
+        if (progress >= 100) {
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                document.getElementById("loading").style.display = "none";
+
+                document.getElementById("main").style.display = "block";
+
+                initializeWebsite();
+
+            }, 700);
+
+        }
+
+    }, 350);
+
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+function initializeWebsite() {
+
+    createGallery();
+
+    animateStats();
+
+    randomMessage();
+
+    /* Try to start music */
+
+    music.play()
+        .then(() => {
+
+            document.getElementById("musicButton").innerHTML = "🔊";
+
+        })
+        .catch(() => {
+
+            document.getElementById("musicButton").innerHTML = "🔇";
+
+        });
+
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+function animateNumber(element, target, suffix = "") {
+
+    let current = 0;
+
+    const interval = setInterval(() => {
+
+        current += Math.ceil(target / 30);
+
+        if (current >= target) {
+
+            current = target;
+
+            clearInterval(interval);
+
+        }
+
+        element.innerText = current.toLocaleString() + suffix;
+
+    }, 40);
+
+}
+
+
+function animateStats() {
+
+    animateNumber(
+        document.getElementById("stat1"),
+        1847
+    );
+
+    animateNumber(
+        document.getElementById("stat2"),
+        9999
+    );
+
+    animateNumber(
+        document.getElementById("stat3"),
+        742
+    );
+
+    animateNumber(
+        document.getElementById("stat4"),
+        101,
+        "%"
+    );
+
+}
+
+
+/* =========================
+   RANDOM MESSAGES
+========================= */
+
+const messages = [
+
+    "⚠️ Subject appears to have unlimited teacher energy.",
+
+    "📢 Voice volume: unnecessary but effective.",
+
+    "🧠 Brain detected. Unfortunately, students did not detect theirs.",
+
+    "😂 Meme potential: EXTREMELY HIGH.",
+
+    "🚨 WARNING: Jannatim levels exceeding legal limits.",
+
+    "📚 Teaching ability: suspiciously powerful.",
+
+    "👀 Subject has been observed staring at students who are talking.",
+
+    "💀 Student survival probability: 73%.",
+
+    "🏆 Ustoz status: LEGENDARY.",
+
+    "🔥 Aura detected. Scientists are confused.",
+
+    "📡 Searching for professionalism... 404 NOT FOUND.",
+
+    "🫡 Respect level: maximum.",
+
+    "😂 This photograph has been classified as 'too powerful'.",
+
+    "🚨 Government has requested this website be deleted.",
+
+    "💯 Teacher rating: JANNATIM/10."
+
+];
+
+
+function randomMessage() {
+
+    const box = document.getElementById("randomMessage");
+
+    const random =
+        messages[Math.floor(Math.random() * messages.length)];
+
+    box.style.opacity = "0";
+
+    setTimeout(() => {
+
+        box.innerText = random;
+
+        box.style.opacity = "1";
+
+    }, 200);
+
+}
+
+
+/* =========================
+   PHOTO CAPTIONS
+========================= */
+
+const captions = [
+
+    "When you realize the students have done absolutely nothing.",
+
+    "POV: You hear 'Ustoz, can I ask one question?'",
+
+    "The exact moment the class became suspicious.",
+
+    "Professional teacher. Unprofessional photograph.",
+
+    "When someone says: 'I forgot my homework.'",
+
+    "Trying to understand what the students are doing.",
+
+    "Jannatim mode: ACTIVATED.",
+
+    "The face of someone who has seen everything.",
+
+    "When the classroom suddenly becomes silent.",
+
+    "Teacher.exe has stopped responding.",
+
+    "When someone whispers during the lesson.",
+
+    "Absolutely normal behavior. Nothing to see here.",
+
+    "Caught in 4K.",
+
+    "This image has been classified as dangerous.",
+
+    "The students were not prepared for this moment.",
+
+    "When the lesson takes an unexpected turn.",
+
+    "Aura level: completely unnecessary.",
+
+    "Nobody knows what happened here.",
+
+    "Evidence that teachers are actually human.",
+
+    "The legendary Jannatim Ustozim.",
+
+    "When your patience reaches 1%.",
+
+    "Mission objective: survive the lesson.",
+
+    "Scientists are still studying this photograph.",
+
+    "This moment will be remembered forever.",
+
+    "And this is why we love our ustoz. ❤️"
+
+];
+
+
+/* =========================
+   CREATE 25 PHOTOS
+========================= */
+
+function createGallery() {
+
+    const gallery = document.getElementById("gallery");
+
+    for (let i = 1; i <= 25; i++) {
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.style.animationDelay =
+            (i * 0.08) + "s";
+
+
+        const img = document.createElement("img");
+
+        img.src = `photos/${i}.jpeg`;
+
+        img.alt = `Jasur photo ${i}`;
+
+        img.onclick = function() {
+
+            openModal(this.src);
+
+        };
+
+
+        const info = document.createElement("div");
+
+        info.className = "card-info";
+
+
+        const number = document.createElement("div");
+
+        number.className = "photo-number";
+
+        number.innerText =
+            `CLASSIFIED FILE #${String(i).padStart(3, "0")}`;
+
+
+        const caption = document.createElement("div");
+
+        caption.className = "caption";
+
+        caption.innerText = captions[i - 1];
+
+
+        info.appendChild(number);
+
+        info.appendChild(caption);
+
+        card.appendChild(img);
+
+        card.appendChild(info);
+
+        gallery.appendChild(card);
+
+    }
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(src) {
+
+    const modal = document.getElementById("modal");
+
+    const image = document.getElementById("modalImage");
+
+    image.src = src;
+
+    modal.style.display = "flex";
+
+}
+
+
+function closeModal() {
+
+    document.getElementById("modal").style.display = "none";
+
+}
+
+
+/* =========================
+   RANDOM CHAOS
+========================= */
+
+setInterval(() => {
+
+    if (
+        document.getElementById("main").style.display === "block"
+    ) {
+
+        if (Math.random() < 0.25) {
+
+            randomMessage();
+
+        }
+
+    }
+
+}, 8000);
+
+
+/* =========================
+   KEYBOARD EASTER EGG
+========================= */
+
+let keys = "";
+
+document.addEventListener("keydown", function(e) {
+
+    keys += e.key.toLowerCase();
+
+    if (keys.length > 20) {
+
+        keys = keys.slice(-20);
+
+    }
+
+    if (keys.includes("jasur")) {
+
+        document.body.style.transform = "rotate(1deg)";
+
+        setTimeout(() => {
+
+            document.body.style.transform = "rotate(0deg)";
+
+        }, 300);
+
+        randomMessage();
+
+        keys = "";
+
+    }
+
+});
+
+
+</script>
+
+</body>
+</html>
+```
